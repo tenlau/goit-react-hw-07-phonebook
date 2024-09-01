@@ -1,13 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './Filter.module.css';
 
-
-
-const Filter = ({ value, onChange }) => {
-  return (
-    <input type="text" value={value} onChange={onChange} />
-  );
-};
+const Filter = ({ filter, onFilterChange }) => (
+  <div>
+    <label>
+      Find contacts by name
+      <input
+        type="text"
+        value={filter}
+        onChange={e => onFilterChange(e.target.value)}
+      />
+    </label>
+  </div>
+);
 
 export default Filter;

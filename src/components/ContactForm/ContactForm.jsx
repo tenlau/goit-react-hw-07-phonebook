@@ -1,35 +1,31 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
-import styles from './ContactForm.module.css';
 
 class ContactForm extends Component {
   state = {
     name: '',
-    number: '',
+    number: ''
   };
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const newContact = { ...this.state, id: nanoid() };
-    this.props.onSubmit(newContact);
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.addContact(this.state.name, this.state.number);
     this.setState({ name: '', number: '' });
   };
 
   render() {
     return (
-      <form className={styles.contactForm} onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <label>
           Name
           <input
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces."
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
             required
             value={this.state.name}
             onChange={this.handleChange}
@@ -52,9 +48,5 @@ class ContactForm extends Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default ContactForm;
