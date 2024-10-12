@@ -1,11 +1,13 @@
-// components/ContactForm/ContactForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsOperations'; // Correct import
 
-const ContactForm = ({ addContact }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -15,7 +17,7 @@ const ContactForm = ({ addContact }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    addContact(name, number);
+    dispatch(addContact({ name, number }));
     setName('');
     setNumber('');
   };
